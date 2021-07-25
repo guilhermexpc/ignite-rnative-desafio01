@@ -20,10 +20,18 @@ export function Home() {
       title: newTaskTitle,
       done: false
     } 
-    setTasks(oldVector => [...oldVector, task])
+    setTasks(OldVector => [...OldVector, task])
   }
 
   function handleToggleTaskDone(id: number) {
+    const updatedTasks = tasks.map((task) => ({...task}))
+    
+    const foundTask = updatedTasks.find((element) => element.id === id)
+
+    if (foundTask){
+      foundTask.done = !foundTask.done
+      setTasks(updatedTasks)
+    }
     //TODO - toggle task done if exists
   }
 
