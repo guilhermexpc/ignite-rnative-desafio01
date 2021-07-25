@@ -28,6 +28,9 @@ export function Home() {
   }
 
   function handleRemoveTask(id: number) {
+    setTasks(oldVector => oldVector.filter(
+      (task) => task.id !== id
+    ))
     //TODO - remove task from state
   }
 
