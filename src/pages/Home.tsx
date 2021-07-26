@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
 import { TasksList } from '../components/TasksList';
@@ -20,6 +20,18 @@ export function Home() {
       title: newTaskTitle,
       done: false
     } 
+
+    const duplicatedTasks = tasks.find(element => element.title === newTaskTitle)
+    if (duplicatedTasks){
+      Alert.alert(
+        "Task já cadastrada",
+        "Você não pode cadastrar uma task com o mesmo nome",
+        [          
+          { text: "OK", onPress: () => console.log("OK Pressed") }
+        ]
+      );
+      return
+    }    
     setTasks(OldVector => [...OldVector, task])
   }
 
