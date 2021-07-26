@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 
 import { Header } from '../components/Header';
+import { TaskItem } from '../components/TaskItem';
 import { TasksList } from '../components/TasksList';
 import { TodoInput } from '../components/TodoInput';
 
@@ -47,10 +48,29 @@ export function Home() {
     //TODO - toggle task done if exists
   }
 
+  function handleEditTask(taskId: number, taskNewTitle: string) {
+    const selectedTask = tasks.find((element) => element.id === taskId)
+
+    if (selectedTask){
+
+    }
+    
+  }
+
   function handleRemoveTask(id: number) {
-    setTasks(oldVector => oldVector.filter(
-      (task) => task.id !== id
-    ))
+    Alert.alert(
+      "Task já cadastrada",
+      "Você não pode cadastrar uma task com o mesmo nome",
+      [          
+        { text: "Não" },
+
+        { text: "OK", onPress: () => 
+          setTasks(oldVector => oldVector.filter(
+            (task) => task.id !== id
+          ))
+        }
+      ]
+    );
     //TODO - remove task from state
   }
 
@@ -59,11 +79,12 @@ export function Home() {
       <Header tasksCounter={tasks.length} />
 
       <TodoInput addTask={handleAddTask} />
-
+     
       <TasksList 
         tasks={tasks} 
         toggleTaskDone={handleToggleTaskDone}
-        removeTask={handleRemoveTask} 
+        removeTask={handleRemoveTask}
+        editTask={handleEditTask} 
       />
     </View>
   )

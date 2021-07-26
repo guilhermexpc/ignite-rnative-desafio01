@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/Feather';
 
 import { ItemWrapper } from './ItemWrapper';
 
+import { TaskItem } from './TaskItem';
 import trashIcon from '../assets/icons/trash/trash.png'
 
 export interface Task {
@@ -16,9 +17,10 @@ interface TasksListProps {
   tasks: Task[];
   toggleTaskDone: (id: number) => void;
   removeTask: (id: number) => void;
+  editTask: (id: number, title: string) => void;
 }
 
-export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps) {
+export function TasksList({ tasks, toggleTaskDone, removeTask, editTask }: TasksListProps) {
   return (
     <FlatList
       data={tasks}
@@ -28,7 +30,14 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
       renderItem={({ item, index }) => {
         return (
           <ItemWrapper index={index}>
-            <View>
+            <TaskItem 
+              tasks={item}
+              toggleTaskDone={toggleTaskDone}
+              removeTask={removeTask}
+              editTask={editTask}
+            />
+
+            {/* <View>
               <TouchableOpacity
                 testID={`button-${index}`}
                 activeOpacity={0.7}
@@ -66,7 +75,7 @@ export function TasksList({ tasks, toggleTaskDone, removeTask }: TasksListProps)
               //TODO - use onPress (remove task) prop
             >
               <Image source={trashIcon} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </ItemWrapper>
         )
       }}
